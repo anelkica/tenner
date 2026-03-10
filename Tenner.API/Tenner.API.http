@@ -1,4 +1,4 @@
-@Tenner.API_HostAddress = http://localhost:3333
+@Tenner.API_HostAddress = http://localhost:5077
 
 GET {{Tenner.API_HostAddress}}/weatherforecast/
 Accept: application/json

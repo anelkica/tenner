@@ -1,6 +1,14 @@
 using Scalar.AspNetCore;
+using StackExchange.Redis;
+using Tenner.API.Interfaces;
+using Tenner.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    ConnectionMultiplexer.Connect("localhost:6379")
+);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
