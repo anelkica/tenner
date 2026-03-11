@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Tenner.API/Tenner.API.csproj" />
+  <Project Path="Tenner.Tests/Tenner.Tests.csproj" Id="eaf3a7c8-9a99-42b3-a52f-9cc472db00c3" />
 </Solution>

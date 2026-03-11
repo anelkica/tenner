@@ -24,7 +24,6 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
         if (cached is not null)
             return Ok(cached);
 
-        
         TenorResponse? results = await tenor.SearchAsync(query, limit, pos);
         if (results is null) // 502 Bad Gateway: upstream Tenor API request failed
             return StatusCode(502, "Failed to get results from Tenor");
