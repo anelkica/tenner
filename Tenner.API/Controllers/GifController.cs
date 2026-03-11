@@ -33,7 +33,7 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
 
     [HttpGet("featured")]
     [EndpointDescription("Returns featured GIFs on Tenor homepage. Cached for 15min.")]
-    public async Task<ActionResult<TenorResponse>> Featured(int limit = 10, string? pos = null)
+    public async Task<ActionResult<TenorResponse>> GetFeatured(int limit = 10, string? pos = null)
     {
         if (limit is < 1 or > 50)
             return BadRequest("Limit must be between 1 and 50");
@@ -53,7 +53,7 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
     }
 
     [HttpGet("autocomplete")]
-    [EndpointDescription("Returns autocomplete suggestions for a partial search query.")]
+    [EndpointDescription("Returns autocomplete suggestions for a partial search query. Use client-side debouncing.")]
     public async Task<ActionResult<TenorSuggestionsResponse>> Autocomplete(string query, int limit = 3)
     {
         if (string.IsNullOrWhiteSpace(query))
@@ -70,7 +70,7 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
     }
 
     [HttpPost("share")]
-    [EndpointDescription("Registers a share to the official Tenor API. Use when selecting or sharing a GIF")]
+    [EndpointDescription("Registers a share to the official Tenor API. Use when selecting or sharing a GIF.")]
     public async Task<ActionResult> RegisterShare(string id, string? query = null)
     {
         if (string.IsNullOrWhiteSpace(id))
