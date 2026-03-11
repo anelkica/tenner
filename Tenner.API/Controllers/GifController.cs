@@ -52,6 +52,23 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
         return Ok(results);
     }
 
+    [HttpGet("autocomplete")]
+    [EndpointDescription("Returns autocomplete suggestions for a partial search query.")]
+    public async Task<ActionResult<TenorSuggestionsResponse>> Autocomplete(string query, int limit = 3)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+            return BadRequest("Query cannot be empty");
+
+        if (limit is < 1 or > 5)
+            return BadRequest("Limit must be between 1 and 5");
+
+        TenorSuggestionsResponse? results = await tenor.GetAutocompleteAsync(query, limit);
+        if (results is null)
+            return StatusCode(502, "Failed to get autocomplete for query");
+
+        return Ok(results);
+    }
+
     [HttpPost("share")]
     [EndpointDescription("Registers a share to the official Tenor API. Use when selecting or sharing a GIF")]
     public async Task<ActionResult> RegisterShare(string id, string? query = null)

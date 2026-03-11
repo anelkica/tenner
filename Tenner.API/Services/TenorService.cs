@@ -20,7 +20,7 @@ public class TenorService(HttpClient http, IOptions<TenorConfig> config, ILogger
             ["pos"] = pos
         });
 
-        return await GetTenorResponseAsync(url);
+        return await GetResponseAsync<TenorResponse?>(url);
     }
 
     public async Task<TenorResponse?> GetFeaturedAsync(int limit = 10, string? pos = null)
@@ -31,7 +31,18 @@ public class TenorService(HttpClient http, IOptions<TenorConfig> config, ILogger
             ["pos"] = pos
         });
 
-        return await GetTenorResponseAsync(url);
+        return await GetResponseAsync<TenorResponse?>(url);
+    }
+
+    public async Task<TenorSuggestionsResponse?> GetAutocompleteAsync(string query, int limit = 3)
+    {
+        string url = BuildUrl("autocomplete", new Dictionary<string, string?>
+        {
+            ["q"] = query,
+            ["limit"] = limit.ToString()
+        });
+
+        return await GetResponseAsync<TenorSuggestionsResponse?>(url);
     }
 
     public async Task RegisterShareAsync(string id, string? query = null)
@@ -52,16 +63,17 @@ public class TenorService(HttpClient http, IOptions<TenorConfig> config, ILogger
         }
     }
 
-    private async Task<TenorResponse?> GetTenorResponseAsync(string url)
+    // prefer to use with TenorResponse or TenorSuggestionsResponse
+    private async Task<T?> GetResponseAsync<T>(string url)
     {
         try
         {
-            return await http.GetFromJsonAsync<TenorResponse>(url);
+            return await http.GetFromJsonAsync<T>(url);
         }
         catch (Exception e)
         {
             logger.LogError(e, "Tenor API request failed for URL: {Url}", url);
-            return null;
+            return default;
         }
     }
 
