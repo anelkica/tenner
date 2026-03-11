@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Tenner.API.Interfaces;
 using Tenner.API.Models;
 
@@ -30,5 +29,37 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
 
         await cache.SetAsync(cacheKey, results, TimeSpan.FromMinutes(5));
         return Ok(results);
+    }
+
+    [HttpGet("featured")]
+    [EndpointDescription("Returns featured GIFs on Tenor homepage. Cached for 15min.")]
+    public async Task<ActionResult<TenorResponse>> Featured(int limit = 10, string? pos = null)
+    {
+        if (limit is < 1 or > 50)
+            return BadRequest("Limit must be between 1 and 50");
+
+        string cacheKey = $"featured:{limit}:{pos}";
+
+        TenorResponse? cached = await cache.GetAsync<TenorResponse>(cacheKey);
+        if (cached is not null)
+            return Ok(cached);
+
+        TenorResponse? results = await tenor.GetFeaturedAsync(limit, pos);
+        if (results is null)
+            return StatusCode(502, "Failed to get featured GIFs from Tenor");
+
+        await cache.SetAsync(cacheKey, results, TimeSpan.FromMinutes(15));
+        return Ok(results);
+    }
+
+    [HttpPost("share")]
+    [EndpointDescription("Registers a share to the official Tenor API. Use when selecting or sharing a GIF")]
+    public async Task<ActionResult> RegisterShare(string id, string? query = null)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return BadRequest("ID cannot be empty.");
+
+        await tenor.RegisterShareAsync(id, query);
+        return NoContent();
     }
 }

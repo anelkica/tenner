@@ -20,10 +20,39 @@ public class TenorService(HttpClient http, IOptions<TenorConfig> config, ILogger
             ["pos"] = pos
         });
 
-        return await GetAsync(url);
+        return await GetTenorResponseAsync(url);
     }
 
-    private async Task<TenorResponse?> GetAsync(string url)
+    public async Task<TenorResponse?> GetFeaturedAsync(int limit = 10, string? pos = null)
+    {
+        string url = BuildUrl("featured", new Dictionary<string, string?>
+        {
+            ["limit"] = limit.ToString(),
+            ["pos"] = pos
+        });
+
+        return await GetTenorResponseAsync(url);
+    }
+
+    public async Task RegisterShareAsync(string id, string? query = null)
+    {
+        string url = BuildUrl("registershare", new Dictionary<string, string?>
+        {
+            ["id"] = id,
+            ["q"] = query
+        });
+
+        try
+        {
+            await http.GetAsync(url); // fire & forget
+        }
+        catch (Exception e)
+        {
+            logger.LogWarning(e, "Failed to register share for GIF: {Id}", id);
+        }
+    }
+
+    private async Task<TenorResponse?> GetTenorResponseAsync(string url)
     {
         try
         {
