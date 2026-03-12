@@ -6,5 +6,6 @@
     <File Path="docker-compose.yml" />
   </Folder>
   <Project Path="Tenner.API/Tenner.API.csproj" />
+  <Project Path="Tenner.Avalonia/Tenner.Avalonia.csproj" Id="c9f6b700-38f9-4ab4-928d-8e8ea82c8804" />
   <Project Path="Tenner.Tests/Tenner.Tests.csproj" Id="eaf3a7c8-9a99-42b3-a52f-9cc472db00c3" />
 </Solution>

@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Tenner.Avalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Tenner.Avalonia.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        MinWidth="360"
+        MinHeight="500"
+        Icon="/Assets/avalonia-logo.ico"
+        TransparencyLevelHint="Mica, AcrylicBlur, None"
+        Background="Transparent"
+        Title="tenner">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Panel>
+        <Grid>
+
+        </Grid>
+    </Panel>
+
+</Window>
