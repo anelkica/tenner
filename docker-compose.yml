@@ -1,0 +1,16 @@
+services:
+  tenner.api:
+    build:
+      context: .
+      dockerfile: Tenner.API/Dockerfile
+    ports:
+      - "${ASPNET_PORT}:3333"
+    environment:
+      - ASPNETCORE_URLS=http://+:3333
+      - TENOR__APIKEY=${TENOR_API_KEY}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine # by default on port 6379

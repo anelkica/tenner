@@ -15,7 +15,7 @@ builder.Services.AddScoped<ITenorService, TenorService>();
 
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddSingleton<IConnectionMultiplexer>(
-    ConnectionMultiplexer.Connect("localhost:6379")
+    ConnectionMultiplexer.Connect("redis:6379")
 );
 
 builder.Services.AddControllers();

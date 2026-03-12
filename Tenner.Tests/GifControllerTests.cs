@@ -20,6 +20,8 @@ public class GifControllerTests
         _controller = new GifController(_cache.Object, _tenor.Object, _logger.Object);
     }
 
+    // i feel slightly icky for using regions but oh well
+
     #region search tests
 
     [Fact]
