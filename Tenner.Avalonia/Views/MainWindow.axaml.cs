@@ -19,6 +19,11 @@ namespace Tenner.Avalonia.Views
             SetupTitlebar();
         }
 
+        private void SetupMica()
+        {
+
+        }
+
         private void SetupTitlebar()
         {
             void UpdateMaximizeIcon()

@@ -1,10 +1,13 @@
 <Window xmlns="https://github.com/avaloniaui"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:vm="using:Tenner.Avalonia.ViewModels"
+		xmlns:models="using:Tenner.Avalonia.Models"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		x:Class="Tenner.Avalonia.Views.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
+		xmlns:controls="using:Tenner.Avalonia.Controls"
+		xmlns:gif="using:Avalonia.Labs.Gif"
 		SystemDecorations="BorderOnly"
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
@@ -14,12 +17,6 @@
 		Icon="/Assets/avalonia-logo.ico"
 		Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
 		Title="tenner">
-
-	<Design.DataContext>
-		<!-- This only sets the DataContext for the previewer in an IDE,
-		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
 
 	<Panel>
 		<Grid RowDefinitions="38, Auto, *">
@@ -38,6 +35,7 @@
 				</StackPanel>
 			</Grid>
 
+			<!-- SEARCH BAR / TOP BAR -->
 			<Grid Grid.Row="1" Margin="0,12,0,0" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
 				<TextBox Grid.Column="1" MaxWidth="320" MinHeight="36" VerticalContentAlignment="Center"
 						 Watermark="Search Tenor GIFs" Background="Transparent" CornerRadius="16">
@@ -47,6 +45,23 @@
 					</TextBox.InnerLeftContent>
 				</TextBox>
 			</Grid>
+
+			<!-- BROWSER -->
+			<ScrollViewer Grid.Row="2" MaxWidth="1000" Margin="16">
+				<ItemsControl ItemsSource="{Binding Gifs}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<controls:MasonryPanel Columns="3" Spacing="4"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:DataType="models:GifItem">
+							<controls:GifCard Url="{Binding Url}" AspectRatio="{Binding AspectRatio}"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+
 		</Grid>
 	</Panel>
 

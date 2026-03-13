@@ -1,5 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:controls="using:Tenner.Avalonia.Controls">
 
 	<Style Selector=":is(Control)">
 		<Style.Resources>
@@ -47,4 +48,19 @@
 		</Style>
 	</Style>
 
+	<!-- GIF CARD -->
+	<!-- if it doesn't work, port over styles to GifCard.axaml -->
+
+	<Style Selector="controls|GifCard Border#Card">
+		<Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+		<Setter Property="RenderTransform" Value="scale(1)"/>
+		<Setter Property="Transitions">
+			<Transitions>
+				<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut"/>
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="controls|GifCard:pointerover Border#Card">
+		<Setter Property="RenderTransform" Value="scale(1.015)"/>
+	</Style>
 </Styles>
