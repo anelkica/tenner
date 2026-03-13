@@ -1,28 +1,53 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Tenner.Avalonia.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Tenner.Avalonia.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        MinWidth="360"
-        MinHeight="500"
-        Icon="/Assets/avalonia-logo.ico"
-        TransparencyLevelHint="Mica, AcrylicBlur, None"
-        Background="Transparent"
-        Title="tenner">
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="using:Tenner.Avalonia.ViewModels"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		x:Class="Tenner.Avalonia.Views.MainWindow"
+		x:DataType="vm:MainWindowViewModel"
+		SystemDecorations="BorderOnly"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		MinWidth="360"
+		MinHeight="500"
+		Icon="/Assets/avalonia-logo.ico"
+		Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+		Title="tenner">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
-    <Panel>
-        <Grid>
+	<Panel>
+		<Grid RowDefinitions="38, Auto, *">
+			<!-- TITLEBAR -->
+			<!-- connected in SetupTitlebar() -->
+			<Grid x:Name="Titlebar" Grid.Row="0" Margin="16,0,0,0" ColumnDefinitions="Auto, *, Auto">
+				<TextBlock Grid.Column="0" Text="tenner" FontSize="16" VerticalAlignment="Center" />
 
-        </Grid>
-    </Panel>
+				<Border Grid.Column="1" Background="Transparent" /> <!-- transparent allows user to drag, don't remove -->
+
+				<!-- WINDOW BUTTONS -->
+				<StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Stretch">
+					<Button x:Name="MinimizeButton" Classes="titlebar-btn" Content="{LucideIconContent Minus, 18}" />
+					<Button x:Name="MaximizeButton" Classes="titlebar-btn" Content="{LucideIconContent Square, 16}" />
+					<Button x:Name="CloseButton" Classes="titlebar-btn titlebar-btn-close" Content="{LucideIconContent X, 18}" />
+				</StackPanel>
+			</Grid>
+
+			<Grid Grid.Row="1" Margin="0,12,0,0" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+				<TextBox Grid.Column="1" MaxWidth="320" MinHeight="36" VerticalContentAlignment="Center"
+						 Watermark="Search Tenor GIFs" Background="Transparent" CornerRadius="16">
+
+					<TextBox.InnerLeftContent>
+						<LucideIcon Kind="Search" Size="16" Margin="12,1.5,0,0" Opacity="0.5" />
+					</TextBox.InnerLeftContent>
+				</TextBox>
+			</Grid>
+		</Grid>
+	</Panel>
 
 </Window>

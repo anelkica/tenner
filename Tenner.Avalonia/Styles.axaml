@@ -1,0 +1,50 @@
+<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Style Selector=":is(Control)">
+		<Style.Resources>
+			<SolidColorBrush x:Key="TextControlBackground" Color="#0FFFFFFF"/>
+			<SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#0FFFFFFF"/>
+			<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#0FFFFFFF"/>
+		</Style.Resources>
+	</Style>
+
+	<Style Selector="TextBox /template/ Border#PART_BorderElement">
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Property="Background" Duration="0:0:0.15" Easing="CubicEaseOut"/>
+				<ThicknessTransition Property="BorderThickness" Duration="0:0:0.15" Easing="CubicEaseOut"/>
+			</Transitions>
+		</Setter>
+	</Style>
+
+	<!-- TITLEBAR BUTTONS -->
+
+	<Style Selector="Button.titlebar-btn">
+		<Setter Property="MinWidth" Value="46"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="Padding" Value="12,8"/>
+
+		<Style Selector="^:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#15FFFFFF"/>
+		</Style>
+
+		<Style Selector="^:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="#25FFFFFF"/>
+		</Style>
+	</Style>
+
+	<Style Selector="Button.titlebar-btn-close">
+		<Style Selector="^:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#C42B1C"/>
+		</Style>
+
+		<Style Selector="^:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="#B22318"/>
+		</Style>
+	</Style>
+
+</Styles>
