@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Tenner.API.Models;
+namespace Tenner.Core.Models;
 
 public record MediaFormat
 {

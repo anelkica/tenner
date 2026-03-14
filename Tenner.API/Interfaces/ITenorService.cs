@@ -1,4 +1,4 @@
-﻿using Tenner.API.Models;
+﻿using Tenner.Core.Models;
 
 namespace Tenner.API.Interfaces;
 

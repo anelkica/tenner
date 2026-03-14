@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Tenner.API.Configuration;
 using Tenner.API.Interfaces;
-using Tenner.API.Models;
+using Tenner.Core.Models;
 
 namespace Tenner.API.Services;
 

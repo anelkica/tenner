@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tenner.API.Interfaces;
-using Tenner.API.Models;
+using Tenner.Core.Models;
 
 namespace Tenner.API.Controllers;
 
@@ -48,7 +48,8 @@ public class GifController(ICacheService cache, ITenorService tenor, ILogger<Gif
         if (results is null)
             return StatusCode(502, "Failed to get featured GIFs from Tenor");
 
-        await cache.SetAsync(cacheKey, results, TimeSpan.FromMinutes(15));
+        await cache.SetAsync(cacheKey, results, TimeSpan.FromHours(12)); // mock
+        //await cache.SetAsync(cacheKey, results, TimeSpan.FromMinutes(15));
         return Ok(results);
     }
 

@@ -4,7 +4,7 @@ using Moq;
 using System.Collections;
 using Tenner.API.Controllers;
 using Tenner.API.Interfaces;
-using Tenner.API.Models;
+using Tenner.Core.Models;
 
 namespace Tenner.Tests;
 

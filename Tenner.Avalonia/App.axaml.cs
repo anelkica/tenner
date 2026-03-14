@@ -3,7 +3,10 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System.Security.Authentication.ExtendedProtection;
+using Tenner.Avalonia.Services;
 using Tenner.Avalonia.ViewModels;
 using Tenner.Avalonia.Views;
 
@@ -18,6 +21,13 @@ namespace Tenner.Avalonia
 
         public override void OnFrameworkInitializationCompleted()
         {
+
+            ServiceCollection services = new();
+            services.AddHttpClient<ITennerClient, TennerClient>();
+            services.AddTransient<MainWindowViewModel>();
+
+            ServiceProvider provider = services.BuildServiceProvider();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -25,7 +35,7 @@ namespace Tenner.Avalonia
                 DisableAvaloniaDataAnnotationValidation();
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = provider.GetRequiredService<MainWindowViewModel>()
                 };
             }
 
