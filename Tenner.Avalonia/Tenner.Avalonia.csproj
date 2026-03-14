@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tenner.Core\Tenner.Core.csproj" />
   </ItemGroup>
 </Project>
